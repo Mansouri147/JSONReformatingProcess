@@ -1,6 +1,7 @@
 const finance = require("./finance.json");
 const fs = require("fs");
 const path = require("path");
+const { Console } = require("console");
 
 // let finance = [
 //     { "date": "1959:01", "1": 138.89, "2": 139.39, "3": 139.74, "4": 139.69, "5": 140.68, "6": 141.17 },
@@ -56,6 +57,8 @@ let a = {};
 // }
 
 // for (let item of firstHalf.values()) {a += item}
+// const getYear = yearParam => ({ year: yearParam.split(":")[0]})
+// const getSemester = semesterParam => ({semester: semesterParam.split(":")[1] > 6 ? 2 : 1 });
 
 // for (let [key, value] of secondHalf.entries()) console.log(`{${key} : ${value.date} }`)
 
@@ -184,18 +187,18 @@ let object;
 //   f + 1
 // }
 
-const formated = {};
+// const formated = {};
 
-for (let obj of finance) {
-  const year = obj["date"].split(":")[0];
-  formated[year] = { ...obj };
-  delete formated[year]["date"];
-}
+// for (let obj of finance) {
+//   const year = obj["date"].split(":")[0];
+//   formated[year] = { ...obj };
+//   delete formated[year]["date"];
+// }
 
-console.log(formated);
+// console.log(formated);
 
-// console.log( secondObj);
-fs.writeFileSync(path.resolve(__dirname, 'Try1.json'), JSON.stringify(formated));
+// // console.log( secondObj);
+// fs.writeFileSync(path.resolve(__dirname, "Try1.json"), JSON.stringify(transform(dates)));
 // let arr = {};
 // let i = 0;
 
@@ -230,3 +233,26 @@ fs.writeFileSync(path.resolve(__dirname, 'Try1.json'), JSON.stringify(formated))
 
 // // }
 //  console.log(arr)
+
+const formulated = arr => arr.
+  map(obj => {
+  const year = obj["date"].split(":")[0];
+  const semester = obj["date"].split(":")[1] > 6 ? 2 : 1 ;
+
+  let results = []
+
+  for (let item in obj) {
+    if (parseInt(item)) {
+      results.push({
+        year,
+        month: semester === 1 ? parseInt(item) : parseInt(item) + 6,
+        value: obj[item]
+      })
+    }
+  }
+
+  return results
+  }).flat()
+
+formulated(finance)
+fs.writeFileSync(path.resolve(__dirname, "Try1.json"), JSON.stringify(formulated(finance)));
