@@ -18,19 +18,37 @@ const path = require("path");
 //     { "date": "1965:01", "1": 160.71, "2": 160.94, "3": 161.47, "4": 162.03, "5": 161.7, "6": 162.19 },
 //     { "date": "1965:07", "1": 163.05, "2": 163.68, "3": 164.85, "4": 165.97, "5": 166.71, "6": 167.85 }
 // ]
+// class Data {
+//   constructor(year) {
+//     for (let year in years)
+//     class Fin {
+//       constructor(year, month, vals) {
+//         this.year = year;
+//         this.year.month = month;
+//         this.year.value = vals;
+//       }
+//     }
+//   }
+// }
 
-class Fin {
-  constructor(year, month, vals) {
-    this.year = year;
-    this.year.month = month;
-  }
-}
+// let month = [
+//   "January",
+//   "February",
+//   "March",
+//   "April",
+//   "May",
+//   "June",
+//   "July",
+//   "August",
+//   "September",
+//   "October",
+//   "November",
+//   "December",
+// ];
 
-let month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+// let vals = [55256, 46848];
 
-let vals = [55256, 46848];
-
-let financeObj = { ...finance };
+// let financeObj = { ...finance };
 
 const finder = (regEx, array) => {
   let condition = new RegExp(regEx);
@@ -183,19 +201,32 @@ let object;
 //   //   delete formated[year]["date"];
 //   f + 1
 // }
-
+//______________________________________________________________
 const formated = {};
-
+let month = {};
+let i = 0
+let m = 1
 for (let obj of finance) {
   const year = obj["date"].split(":")[0];
-  formated[year] = { ...obj };
-  delete formated[year]["date"];
+  // month[m] = obj[`${m}`]
+  month = m
+  
+  // month = {...month}
+  value = month[0]
+  console.log('this is the value >>>>>>>>>>' + value)
+  formated[i] = {year ,month}
+  // delete formated[year]["date"];
+  if (i % 2 !== 0){ m++}
+  i++
+  if (m > 2 ) {m = 1}
 }
 
-console.log(formated);
+console.log(formated,"<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>", month);
 
-// console.log( secondObj);
-fs.writeFileSync(path.resolve(__dirname, 'Try1.json'), JSON.stringify(formated));
+fs.writeFileSync(
+  path.resolve(__dirname, "Try1.json"),
+  JSON.stringify(formated)
+);
 // let arr = {};
 // let i = 0;
 
@@ -230,3 +261,51 @@ fs.writeFileSync(path.resolve(__dirname, 'Try1.json'), JSON.stringify(formated))
 
 // // }
 //  console.log(arr)
+
+// let formated = new Object();
+
+// let values;
+// let i = 1;
+// const Data = async () => {
+//   for (let obj of finance) {
+
+//     const year = obj["date"].split(":")[0];
+//     console.log(finance.length)
+//     for (let r = 0; r < finance.length; r++) {
+      
+//       const formatingData = (year, month, value) => {
+//         month = obj
+//         year = obj["date"].split(":")[0];
+//         for (let d = 1; d < year.length; d++) {
+//           formated[year] = { year, month, value };
+//         }
+//       };
+//       await formatingData(year, month, values)
+//       i++;
+//     }
+//   }
+// }
+
+// Data();
+// console.log(formated);
+
+// fs.writeFileSync(
+//   path.resolve(__dirname, "Try1.json"),
+//   JSON.stringify(formated)
+// );
+
+
+
+// var myObj = new Object(),
+//     str = 'myString',
+//     rand = Math.random(),
+//     obj = new Object();
+
+// myObj.type              = 'Dot syntax';
+// myObj['date created']   = 'String with space';
+// myObj[str]              = 'String value';
+// myObj[rand]             = 'Random Number';
+// myObj[obj]              = 'Object';
+// myObj['']               = 'Even an empty string';
+
+// console.log(myObj);
