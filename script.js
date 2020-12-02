@@ -163,7 +163,7 @@ let object;
 //     },
 //   },
 // };
-
+// parseInt(item)
 // let wholeYear = {};
 // // for (let i = 0; i < firstHalf.length; i++) {
 // for (let j = 0; j < secondHalf[0].length; j++) {
@@ -213,7 +213,7 @@ let object;
 //   const year = obj["date"].split(":")[0];
 //   // month[m] = obj[`${m}`]
 //   month = m
-  
+
 //   // month = {...month}
 //   value = month[0]
 //   console.log('this is the value >>>>>>>>>>' + value)
@@ -230,7 +230,6 @@ let object;
 //   path.resolve(__dirname, "Try1.json"),
 //   JSON.stringify(formated)
 // );
-
 
 // const formated = {};
 
@@ -289,7 +288,7 @@ let object;
 //     const year = obj["date"].split(":")[0];
 //     console.log(finance.length)
 //     for (let r = 0; r < finance.length; r++) {
-      
+
 //       const formatingData = (year, month, value) => {
 //         month = obj
 //         year = obj["date"].split(":")[0];
@@ -311,8 +310,6 @@ let object;
 //   JSON.stringify(formated)
 // );
 
-
-
 // var myObj = new Object(),
 //     str = 'myString',
 //     rand = Math.random(),
@@ -327,26 +324,92 @@ let object;
 
 // console.log(myObj);
 // =======
-const formulated = arr => arr.
-  map(obj => {
-  const year = obj["date"].split(":")[0];
-  const semester = obj["date"].split(":")[1] > 6 ? 2 : 1 ;
 
-  let results = []
+ // Changing month number by string using the Map or switch... case Statements
+ // months = new Map()
+          // months.set(1, "January");
+          // months.set(2, "February");
+          // months.set(3, "March");
+          // months.set(4, "April");
+          // months.set(5, "May");
+          // months.set(6, "June");
+          // months.set(7, "July");
+          // months.set(8, "August");
+          // months.set(9, "September");
+          // months.set(10, "October");
+          // months.set(11, "November");
+          // months.set(12, "December");
+          // const numToMonthConverter = (num) => month = num
+          // _________________________________________________________________________
+          // const monthChanger = (num = monthVar);
+          // let monthVar;
+          // switch (monthVar) {
+          //   case 1:
+          //     monthVar = "January";
+          //     break;
+          //   case 2:
+          //     monthVar = "February";
+          //     break;
+          //   case 3:
+          //     monthVar = "March";
+          //     break;
+          //   case 4:
+          //     monthVar = "April";
+          //     break;
+          //   case 5:
+          //     monthVar = "May";
+          //     break;
+          //   case 6:
+          //     monthVar = "June";
+          //     break;
+          //   case 7:
+          //     monthVar = "July";
+          //     break;
+          //   case 8:
+          //     monthVar = "August";
+          //     break;
+          //   case 9:
+          //     monthVar = "September";
+          //     break;
+          //   case 10:
+          //     monthVar = "October";
+          //     break;
+          //   case 11:
+          //     monthVar = "November";
+          //     break;
+          //   case 12:
+          //     monthVar = "December";
+          //     break;
+          //   default:
+          //     monthVar
+          // }
 
-  for (let item in obj) {
-    if (parseInt(item)) {
-      results.push({
-        year,
-        month: semester === 1 ? parseInt(item) : parseInt(item) + 6,
-        value: obj[item]
-      })
-    }
-  }
 
-  return results
-  }).flat()
+const formated = (arr) =>
+  arr
+    .map((obj) => {
+      const year = obj["date"].split(":")[0];
+      const semester = obj["date"].split(":")[1] > 6 ? 2 : 1;
 
-formulated(finance)
-fs.writeFileSync(path.resolve(__dirname, "Try2.json"), JSON.stringify(formulated(finance)));
+      // for (let item in obj) {
+      return Object.keys(obj)
+        .filter((key) => parseInt(key))
+        .map((key, index) => {
+         
+          return {
+            year,
+            month: semester === 1 ? parseInt(key) : parseInt(key) + 6,
+            // month: semester === 1 ? monthChanger(parseInt(key)) : monthChanger(parseInt(key) + 6),
+            // month: semester === 1 ? months.get(parseInt(key)) : months.get(parseInt(key) + 6),
+            value: obj[key],
+          };
+        });
+    })
+    .reduce((acc, item) => acc.concat(item));
 
+formated(finance);
+
+fs.writeFileSync(
+  path.resolve(__dirname, "Try2.json"),
+  JSON.stringify(formated(finance))
+);
